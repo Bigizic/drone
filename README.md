@@ -76,6 +76,121 @@ echo "alias sim_vehicle='python3 /home/lex/drone/ardupilot/Tools/autotest/sim_ve
 source ~/.bashrc
 ```
 
+7. I tried to compile ArduCopter vehicle simulation with the command ``simvehicle --map --console``and got an error:
+> you need to install empy with 'python -m pip install empy==3.3.4'
+
+```bash
+lex@lex-HP-EliteBook-x360-1030-G2:~/drone/ardupilot/ArduCopter$ simvehicle --map --console
+SIM_VEHICLE: Start
+SIM_VEHICLE: Killing tasks
+SIM_VEHICLE: Starting up at SITL location
+SIM_VEHICLE: WAF build
+SIM_VEHICLE: Configure waf
+SIM_VEHICLE: "/home/lex/drone/ardupilot/modules/waf/waf-light" "configure" "--board" "sitl"
+Setting top to                           : /home/lex/drone/ardupilot 
+Setting out to                           : /home/lex/drone/ardupilot/build 
+Autoconfiguration                        : enabled 
+Checking for program 'python'            : /usr/bin/python 
+Checking for python version >= 3.6.9     : 3.8.10 
+Setting board to                         : sitl 
+Using toolchain                          : native 
+Checking for 'g++' (C++ compiler)        : /usr/bin/g++ 
+Checking for 'gcc' (C compiler)          : /usr/bin/gcc 
+Checking for c flags '-MMD'              : yes 
+Checking for cxx flags '-MMD'            : yes 
+CXX Compiler                             : g++ 9.4.0 
+Checking for need to link with librt     : not necessary 
+Checking for feenableexcept              : yes 
+Enabling -Werror                         : no 
+Enabled OpenDroneID                      : no 
+Enabled firmware ID checking             : no 
+GPS Debug Logging                        : no 
+Enabled custom controller                : yes 
+Checking for HAVE_CMATH_ISFINITE         : yes 
+Checking for HAVE_CMATH_ISINF            : yes 
+Checking for HAVE_CMATH_ISNAN            : yes 
+Checking for NEED_CMATH_ISFINITE_STD_NAMESPACE : yes 
+Checking for NEED_CMATH_ISINF_STD_NAMESPACE    : yes 
+Checking for NEED_CMATH_ISNAN_STD_NAMESPACE    : yes 
+Checking for header endian.h                   : yes 
+Checking for header byteswap.h                 : yes 
+Checking for HAVE_MEMRCHR                      : yes 
+Configured VSCode Intellisense:                : no 
+DC_DSDL compiler                               : /home/lex/drone/ardupilot/modules/DroneCAN/dronecan_dsdlc/dronecan_dsdlc.py 
+Source is git repository                       : yes 
+Update submodules                              : yes 
+Checking for program 'git'                     : /usr/bin/git 
+Checking for program 'size'                    : /usr/bin/size 
+Benchmarks                                     : disabled 
+Unit tests                                     : enabled 
+Scripting                                      : maybe 
+Scripting runtime checks                       : enabled 
+Debug build                                    : disabled 
+Coverage build                                 : disabled 
+Force 32-bit build                             : disabled 
+Checking for program 'rsync'                   : /usr/bin/rsync 
+'configure' finished successfully (1.279s)
+{'model': '+', 'waf_target': 'bin/arducopter', 'default_params_filename': 'default_params/copter.parm', 'sitl-port': True}
+SIM_VEHICLE: Building
+SIM_VEHICLE: "/home/lex/drone/ardupilot/modules/waf/waf-light" "build" "--target" "bin/arducopter"
+Waf: Entering directory `/home/lex/drone/ardupilot/build/sitl'
+Embedding file locations.txt:Tools/autotest/locations.txt
+Embedding file models/Callisto.json:Tools/autotest/models/Callisto.json
+Embedding file models/plane-3d.parm:Tools/autotest/models/plane-3d.parm
+Embedding file models/plane.parm:Tools/autotest/models/plane.parm
+Embedding file models/xplane_heli.json:Tools/autotest/models/xplane_heli.json
+Embedding file models/xplane_plane.json:Tools/autotest/models/xplane_plane.json
+you need to install empy with 'python -m pip install empy==3.3.4'
+SIM_VEHICLE: Build failed
+SIM_VEHICLE: Killing tasks
+
+```
+
+i already have python3 installed but i had to create a symlink bettwen ``python`` and ``python3`` so python resolves to python3 by default
+```bash
+sudo ln -s /usr/bin/python3 /usr/bin/python
+```
+then i tried to fix the error:
+```bash
+lex@lex-HP-EliteBook-x360-1030-G2:~/drone/ardupilot/ArduCopter$ python -m pip install empy==3.3.4
+Collecting empy==3.3.4
+  Downloading empy-3.3.4.tar.gz (62 kB)
+     |████████████████████████████████| 62 kB 161 kB/s 
+Building wheels for collected packages: empy
+  Building wheel for empy (setup.py) ... done
+  Created wheel for empy: filename=empy-3.3.4-py3-none-any.whl size=29329 sha256=4cdffc52e2efc180e897cf13c43b936ff9d673f9223ba05630de5d55c7b6e3de
+  Stored in directory: /home/lex/.cache/pip/wheels/b0/d7/80/0e8ad4f073e05b2435c3b4c12c230cb219135bae4f59978612
+Successfully built empy
+Installing collected packages: empy
+Successfully installed empy-3.3.4
+```
+
+
+got another error:
+
+```bash
+
+Waf: Leaving directory `/home/lex/drone/ardupilot/build/sitl'
+Build failed
+Traceback (most recent call last):
+  File "/home/lex/drone/ardupilot/modules/waf/waflib/Task.py", line 350, in process
+    ret = self.run()
+  File "/home/lex/drone/ardupilot/Tools/ardupilotwaf/mavgen.py", line 54, in run
+    from pymavlink.generator import mavgen
+  File "/home/lex/drone/ardupilot/modules/mavlink/pymavlink/generator/mavgen.py", line 28, in <module>
+    from future import standard_library
+ModuleNotFoundError: No module named 'future'
+
+SIM_VEHICLE: Build failed
+SIM_VEHICLE: Killing tasks
+```
+
+different one this time:
+
+fixed it with ``pip install future``
+
+
+
 
 
 
