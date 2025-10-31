@@ -189,6 +189,30 @@ different one this time:
 
 fixed it with ``pip install future``
 
+### Day 2
+
+There was no GUI interface so i donwloaded python libraries to work with MavProxy, official documentation [here](https://ardupilot.org/mavproxy/docs/getting_started/download_and_installation.html)
+
+command used to fix GUI issue
+
+```bash
+sudo apt-get install python3-dev python3-opencv python3-wxgtk4.0 python3-pip python3-matplotlib python3-lxml python3-pygame
+python3 -m pip install PyYAML mavproxy --user
+echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+then update
+
+```bash
+python3 -m pip install mavproxy pymavlink --user --upgrade
+python3 -m pip install mavproxy --user git+https://github.com/ArduPilot/mavproxy.git@master
+```
+
+run simvehicle --map --console and the GUI loads up
+
+
+
 
 
 
