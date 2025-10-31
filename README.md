@@ -209,7 +209,7 @@ python3 -m pip install mavproxy pymavlink --user --upgrade
 python3 -m pip install mavproxy --user git+https://github.com/ArduPilot/mavproxy.git@master
 ```
 
-run simvehicle --map --console and the GUI loads up
+run ``simvehicle --map --console`` and the GUI loads up
 
 
 
